@@ -60,3 +60,5 @@ Bases de Datos:
 1. mongo DB
 2. MySQL
 3. PostgreSQL
+
+### Full Stack
