@@ -151,10 +151,23 @@ Para cambiarnos a otra rama en nuestro proyecto usamos:
 
 ```git checkout _nombre_rama_a_cambiarnos_ ```
 
+Otra forma de consultar las ramas creadas y su historial es con el los comandos:
+
+```git show-branch ```
+```git show-branch --all ```
+
+Existe el un comando que permite visualizar la historia del proyecto de una forma visual con uns software incluido con Git, se abre con el comando:
+
+```gitk ```
+
 **Merges (fusiones de Ramas)**
 Para fucionar ramas (merge) es importante considerar desde donde estamos haciendo el merge, ya que si la hacemos de forma inversa podemos perder cambios importantes, solo considera que la rama en donde estemos parados será la rama que recibiera los cambios de la otra rama, por ejemplo, si tenesmo nuestra rama master y una rama llamada new-feature y queremos añadir esa nueva característica a master, por lo que debemos movernos a master y ahí hacer el merge hacia la rama new-feature. Para hacer un merge usamos el siguiente comando:
 
 ```git merge _nombre_rama_a_fucionar_ ```
+
+En GitHub siempre visualizaremos la rama Main|Master pero si manejamos en nuestro proyecto rmas alternas, que es lo más recomendable hacerlo, es necesario empujarlas al repositorio remoto, pero antes de ejecutar el comando debemos estar en el proyecto local posicionados en la rama que deseamos subir a GitHub y se hace con el siguiente comando:
+
+```git push origin _nombre_rama_a_subir_ ```
 
 ---
 
@@ -289,3 +302,43 @@ Y también tenemos este comando que nos permite sacra los archivos del área de 
 
 
 
+---
+
+### Flujo de trabajo con colaboladores en Git y GitHub
+
+1. La persona que se va unir al proyecto debe ir al repositorio al que se desea unir, ir a la parte "Code" y copiar la url para clonar el repositorio, ya en su equipo se ubica en el directorio que lo va clonar y ejecuta el siguiente comando:
+
+   ```git clone _url_del repositorio_a_clonar_```
+
+   ejemplo:
+
+   ```git clone git@github.com:pepito/thesiteweb.git```
+
+2. Si consultamos este tendra la hsitoria completa dell proyecto y procedemos hacer cambios, modifica un archivo, lo agrega al área de preparación y hace commit, todo bien, al menos hasta ahora. Antes de hacer un ```git push``` recuerda que es buan practica hacer antes un ```git pull```, todo bien no hay cambios y procedemos hacer ```git push``` y ohh sorprise!!! arrija errror y esto se debe a que centinelaX no tenia los permisos en el repositorio para poder modificarlo, donde "pepito" debe agregarlo al proyecto como colaborador.:
+```
+   ERROR Permission to pepito/thesiteweb.git denied to centinelaX.
+   fatal: No se pudo leer del repositorio remoto.
+
+   Por favor asegurese que tiene los permisos de acceso correctos y que el repositorio existe.
+```
+
+3. Entonces Pepito en su repositorio del proyecto, vamos a la opción de "Settings" del repositorio (No Settinngs de la cuanta) e ingresamos a la opción **Collborators** y hacemos clic en Add people, buscamos ya sea por su nombre de usuario de Git o por su correo y lo agregamos. Git envia un correo mandando la invitación, una vez que confirme la invitación ya tendra acceso para hacer **push** al repositorio, pero no es buena practica hacerlo al Main|Master del proyecto si no manejarlo por ramas.
+
+4. El dueño del repositrio (Pepito) establecio 2 ramas: header y footer, por lo que Pepito se hará carago del header y CentinelaX se hará cargo del footer, en sus respectivas ramas.
+
+5. Pepito: Empieza a trabajar en el header, añade una imagen para el logo creando un directorio ```./imagenes/dragon2.png``` y nombrando la imagen como dragon2.png y también cambia el color del fondo del body. Agragamos los cambios, hacemos commit a origin main|master y ```git push origin header```, ahora podemos ver como va la rama footer.
+
+6. CentinelaX: Empieza a trabajar, lo primero que debe realizar es ```git pull origin footer``` para traernos los ultimos cambios, incluyendo la rama footer. Ahora si nos ponemos a trabajar en el footer, cuando lo terminemos hacemos commit, despúes sigue subir los cambios al repositorio remoto ```origin/footer```, para eso ejecutamos primero ```git pull origin footer``` (recuerda que siempre antes de hacer un push es necesario hacer un pull) y hacemos el ```git push origin footer```, esto subira en el repositorio los cambios del footer en la rama footer.
+
+7.-Ahora corresponde al encargado del repositorio que en este caso es Pepito hacer los 2 merge a la rama main|master. 
+   1. Primero vamos a hacer merge de la rama ```header```, para eso nos movemos a la rama main|master y hacemos el merge con el comando ```git merge header```, nos solicitará el mensaje del commit del merge. Ahora es necesario subir esos cambiso al repositorio remoto, hacemos pull y push.
+   2. Hacemos lo mismo para hacer merge de la rama ```footer```, recuerda que debemos estar en la rama main|master y hacemos el merge con el comando ```git merge footer```, nos solicitará el mensaje del commit del merge. Ahora es necesario subir esos cambiso al repositorio remoto, (recuerda hacer antes el git pull) ```git push origin footer```.
+
+8. Lista ya tenemos en la rama master fusionado el header y el footer, lo recomendable una vez que se unifica una rama es eliminarla pero ya es a tu criterio hacerlo.
+
+
+---
+
+### Flujo de trabajo con personas que no estan colaborando  en Git y GitHub
+
+Puedes colaborar en un repositorio de Git y GitHub aun cuando no eres colaborador, si, así como lo escuchas, esto se hace realizando un ```pull request```.
