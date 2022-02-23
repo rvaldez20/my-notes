@@ -341,4 +341,38 @@ Y también tenemos este comando que nos permite sacra los archivos del área de 
 
 ### Flujo de trabajo con personas que no estan colaborando  en Git y GitHub
 
-Puedes colaborar en un repositorio de Git y GitHub aun cuando no eres colaborador, si, así como lo escuchas, esto se hace realizando un ```pull request```.
+Puedes colaborar en un repositorio de Git y GitHub aun cuando no eres colaborador (y también siendolo), se hace realizando un ```pull request```, el flojo es el sguiente:
+
+1. Suponiendo que tenemos los mismo reposditorios, el de Pepito y CentinelaX, si detectamos un bug en un archivo del proyecto, para hacer la corección será necesario crea una rama la cual denominaremos fix-branch, la cual debe estar actualiza con main|master y procedemos a corregir los bugs.
+
+2. Lo siguiente será empujar la rama fix-branch a GitHub haciendo ```git push origin fix-branch``` 
+
+3. Ahora será necesario agregarlos al área de preparación y confirmar los cambios haciendo commit y volvemos hacer ```git push origin fix-branch```
+
+4. En GitHub en la página principal del proyecto de la cuanta del responsable (Pepito) seleccionamos la rama fix-branch y no arrojara un mensaje que hay diferencia con respecto la rama main|master.
+
+5. Para unirlo GitHub sugiere  hacer un ```pull request``` o también da la opción de hacer un ```Compare & pull request```, lo primero que que nos solicita GitHub es especificar que ramas va comprar, sería de la rama main|master contra l arama fix-branch.
+
+6. Al hacer un pull request GITHUB permite agregar detalles, es decir especificar por que se estan solicitando esos cambios y que quede documentado.
+
+7. En la parte derecha se pueden especificar más detalles, como: solicitar a alguien más que los revise (Reviews), Labels para clasificarlo, así comoProjects y Milestones y hacemos clic en el boton ```Create pull request``` así todos los del equipo tendran concocimiento de lo que se corrigio.
+
+8. Ahora CentinelaX abre el repsositorio y verá que hay un pull request, ademas que si se asigno a alguien del equipo le llegara un correo que se le asigno como reviews y podra visualizar a detalle todo sobr eel pull reques, que cambios y que rama quiere unir.
+
+9. Si consulta en la pestaña ```Files changed``` puede visualizar que porcion de codigo cambiaron, ahí en la parte derecha se localiz ael botón ```Review changes```, si hacemos clic aqui podemos especificar si lo aceptamos o en su defecto no lo aceptamos porque requerimos más cambios. Tiene las opciones: Comment (realzar algun comentario de feelback), Approve (especificas que son factibles los cambios) y Request changes (solicitamos más cambios), en todos los caso debemos jsutificarlo en el mensaje. Todo esto se va agregando en el historial del pull request y quedara documentado.
+
+10. El propietario (Pepito) recibira una alerta en su repositorio (y notificación vía correo electrónico) donde le solicitan hacer más cambios en el pull request, por lo que  se procede a realizar las modificaciones solicitadas.
+
+11. Para empezar hacer cambios primero hacer un ```git pull origin fix-branch``` solo para actualizar nustro repositorio local, y procedemos a realizra los cambios, una vez realizados los cambios hacemos el commit respectivo con los cambios y volvemos a empujar todo en el repositorio en la rama fix-branch ```git push origin fix-branch```.
+
+12. Ahora nos vamos a GitHub al pull request y hacemos clic en la pestaña ```Files changed```, podmeos visualizar los cambios, ahora procedemos a enviarle un mensaje donde se le avisa que los cambios solicitados ya se han realizado y le podemos solicitar a CentinelaX que haga el merge, hacemos clic en el boton Comment.
+
+13. CentinelaX recibira la notificación sobre lo que se agrego al pull request donde se le solicta hacer el merge, revisa los cambios, podmeos hacer clic en el botón ```Review changes```, seleccionamos la opción Approve y le mandamos un mensaje, ya se esta aprobando realizar el pull request. Hay que considerar que los cambios esten aprobados no seignifica que ya se hizo el merge.
+
+14. Ahora será responsabilidada del encargado de proyecto definir quien es el que realizara el merge (y en egneral todos los merges). Si hay colaboradores estos tienen la faccultad de poder realizar los merge, pero si es una persona que no es colaborador del proyecto esta no podrá hacerlo, ya que solo lo podrán hacer el dueño del repositorio y los colaboradores del proyecto.
+
+15. Para hacer la fusión hacemos clin en el boton ```Merge pull request```, en la ventana que nos abre ya podemos ahora si hacer clic en el botón ```Confirm merge``` y esto realizara el merge (realiza el commit correspondiente dle merge) y también cierra el pull request.
+
+16. Una vez cerrado el pull request, podemos eliminar la rama fix-branch y GitHub nos da la opornidad de eliminarla, por lo que procedmos a eliminarala, si nos movemos en el repositorio a la rama priencipal main|master deberan estar lso cambios realizadas por medio del pull request.
+
+17. Ahora en el repositorio local de Pepito aun existe la rama fix-branch, primero ejecutamos un ```git pull origin fix-branch``` pero no se va poder, porque ye hemos eliminado la rama fix-branch del repositorio remoto, pero como ya se hizo merge con main|master hacemos el ```git pull origin main|master``` y esto nos va actualizar la rama principal, ahora mi repositorio local esta actualizado a la última versión.
