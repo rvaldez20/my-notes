@@ -339,7 +339,7 @@ Y también tenemos este comando que nos permite sacra los archivos del área de 
 
 ---
 
-### Flujo de trabajo con personas que no estan colaborando  en Git y GitHub
+### Flujo de trabajo con personas que son colaborandores mediante Pull request
 
 Puedes colaborar en un repositorio de Git y GitHub aun cuando no eres colaborador (y también siendolo), se hace realizando un ```pull request```, el flojo es el sguiente:
 
@@ -376,3 +376,44 @@ Puedes colaborar en un repositorio de Git y GitHub aun cuando no eres colaborado
 16. Una vez cerrado el pull request, podemos eliminar la rama fix-branch y GitHub nos da la opornidad de eliminarla, por lo que procedmos a eliminarala, si nos movemos en el repositorio a la rama priencipal main|master deberan estar lso cambios realizadas por medio del pull request.
 
 17. Ahora en el repositorio local de Pepito aun existe la rama fix-branch, primero ejecutamos un ```git pull origin fix-branch``` pero no se va poder, porque ye hemos eliminado la rama fix-branch del repositorio remoto, pero como ya se hizo merge con main|master hacemos el ```git pull origin main|master``` y esto nos va actualizar la rama principal, ahora mi repositorio local esta actualizado a la última versión.
+
+---
+
+### Flujo de trabajo con personas que no son colaborandores
+
+Para explicar este flujo vamos a quitar de colaborador a CentinelaX, por lo que al ya no ser colaboradora del proyecto ya no puede hacer merge, podria clonar el repositorio pero no podrá hacer push de ningun tipo al proyecto de Pepito, ya no tendra permisos de push, lo único que podra realizar es clonar el proyecto y hacer una mejora pero lo tendra que hacer mediante un pull request pero con algunas variantes.
+
+1. Para poder colaborar en el repositorio estando en el GitHub de CentinelaX buscamos el repositorio en el que queremos colaborar, podemos darle en ```Watch``` para que el dueño del repositorio tenga conocimiento que estoy observando los cambios en el mismo. Tambien podmeos darle una estrella en ```Start```.
+
+2.- Pero lo más importante que podemos hacer es hacer un ```Fork```, esto no straera  anuestro repositorio una copia del estado actual del proyecto y clonarlo, solo se les puede hacer Fork a repositorios publicos. Empezara a clonar el repositorio en nuestro GitHub.
+
+3. Una vez hecho el Fork lo primero que necesitamos hacer es traerlo a nuestro equipo, seleccionamos el directorio donde lo vamos a guardar y procedemos a clonarlo, por lo que copiamos de GitHub la url haciendo clic en ```Code``` y en la terminal ejecutamos lo siguiente: ```git clone _url_proyecto_a_clonar ```, esto nos va clonar el proyecto en local, con todo el historial del proyecto, es decir que si hacemos un git log mostrara todos los commites realizados durante el mismo.
+
+4. El siguente paso es hacer alguna mejora al proyecto que pueda convencer al dueño del repositorio de aceptar mis cambios, se modifican los archivos necesarios, despues hacemos su o sus respectivos commits, si hacemos un ```git status``` me dirá que estamos más adelante qu ela rama main|master por los commits que se hayan realizado.
+
+5. Lo que sigue es subir nuestros cambios al repositorio que hicmos fork (no al repositorio del proyecto) con el comando ```git push``` y con esto ya tendremos el repositorio actualizado.
+
+6. El siguiente paso es crear un ```pull request``` para ver si el dueños del repositorio le agradan nuestas mejoras y lo une a su main|master de su proyecto.
+
+7. En el GitHub de CentinelaX vamos a creamos el pull request haciendo clic en pull requests y despés en el botón ```Create pull request```, GitHub me pregunta que ramas deceamos comparar y hacer merge, por de defecto nos muesta que sería de nuestra rama main|master a la rama main|master del proyecto de Pepito, y más abajo nos muestra cuales son los cambios.
+
+8. Una vez que verificamos que todo esta correcto hacemos clic en el boton ```Create pull request```, nos solicitará ingresar un mensaje donde expicamos la mejora que queremos contribuir y hacemos clic en el botón ```Create pull request```, esto ya creará lo creara y notificará al dueño del proyecto así como a los colaboradores.
+
+9. Como podemos observar en GitHub no tenesmos nosotros de hacer el merge del pull request ya que este solo lo puede ahcer el dueño o algun colaborador, lo que si se puede hacer es cerrar el pull request o volver a comentar.
+
+10. Ahora en el GitHub de Pepito (dueño del respositorio) entramos al proyecto y ahi parcerá el pull request, podemos visualizar que cambios sugiere, su mensaje de justificación para analisar si son factible sus mejoras.
+
+11. Ingresamos a ```Files changes``` y ahi podmeos hecer clic en ```Review changes``` agregamos un mensaje y seleccionamos alguna opción: se Commets | Approve | Request changes, y hacemos clic en Submit review, para est caso mandamos mensaje de OK y aprobamos los cambios (Approve) y hacemos el merge, si revisamos, los cambios de CentinelaX deberan estar unidos a mi main|master.
+
+12. Si Pepito sigue trabajando y haciendo cambios antes de hacer nosotos cualquier cambio (algun commit) debes traernos los ultimos cambios con ```git pull origin main```, en el caso que tuvieramos cambios pendientes de hacer commit en el area de preparación será necesario hacerles commit para no perder los cambios, y una vez que nos traemos los cmabios ahora hacemos un ```git push origin main``` para tener actualizado nuestro repositorio con los últimos cambios.
+
+13. Ahora hay un detalle el cual consiste en que el repositorio origial de Pepito ya tuvo cambios y el repositorio que se le hizo fork esta desfazado por eso cambios, para actualizarlo tenemos que hacer los siguiente: en el GitHub de CentinelaX en donde nos muestra la alerta (en la qu emenciona que estamos n commits atras) hacemos clic en el boton ```Fetch upstream``` seleccionamos la opción ```Compare``` nos mostrará los detalles de los cambios, como sería los commits así como los cambios se puede hacer de 2 formas: la más sencilla es que en GitHub seleccionemos la opción ```Fetch upstream``` o hacerlo desde la consola.
+
+14. Para actualizar nuestro repositorio remoto desde la consola sería como primer paso crear otra fuente para hacer pull, si cosultamos los repositorio remotro con ```git remote -v``` nos mostrará que solo tenemos ```origin```, para eso tenemos que ir al proyecto original y copiar la url de su proyecto y en la cosola vamos a ejecutar el comando ```git remote add upstream _url_repositorio_original_``` esto nos creará el repositorio remoto original, si volvemos a consultar los repositorios remotos ahora tendremos 2: origin y upstream.
+
+15. Ahora será necesario hacer un ```git pull upstream main``` para traernos todos los cambios del repositorio original a nuestra rama main|master y con esto ya nos traemos los cambios, si hacemos un git status podemos ver los commits agregados. El siguiente paso será hacer un ```git push origin main|master``` y listo ya esta actualizado!!!
+
+
+---
+
+### Ignorar archivos en Git
