@@ -416,4 +416,27 @@ Para explicar este flujo vamos a quitar de colaborador a CentinelaX, por lo que 
 
 ---
 
-### Ignorar archivos en Git
+### Ignorar archivos en Git - **.gitignore**
+
+Git permite ignorar archivos, es decir Git no les dará seguimiento, esto es util cuando tenemos archivos con información sencible como claves de acceso a servicios como serían bases de datos o llaves de acceso a otros sitios, también con archivos como la carpeta de node_modules entre otros.
+
+Será necesario crear un archivo en la raíz del proyecto llamado ```.gitignore``` en el cual se van a especificar los nombre de los archivos o directorios que deseamos excluir del seguimiento de Git.
+
+Se pueden especificar grupos de archivos usando los comodines como el asterisco (*), por ejemplo si deseamos excluir todos los archivos con extensión jpg seria ```*.jpg```, para especificar nombre de archivos  seria: ```misCredenciles.js``` y ´para directorios sería ```node_modules/```.
+
+
+---
+
+### Archivo README.md
+
+Es un archivo que describe tu repositorio de Git en el sitio GitHub, donde el .md significa formato Mark Down, es un formato que permite darle un poco de formato permitiendo utilizar titulos de varios tamaños, negritas, cursivas, enlaces, fragmentos de codigo, imaágenes, etc.
+
+Solo teines que crear un archivo en la raíz del proyecto llamado ```README.md``` y listo, ya pudes empezar a explicar aspectos de tu proyecto, que es, para que sirve, documentación, etc.
+
+---
+
+### GitHub Pages
+
+GitHub tiene un servicio de hosting gratis para páginas estaticas y este disponible en internet.
+
+Lo primero es que necesitas tener tu repositorio en GitHub, el siguiente paso será 
