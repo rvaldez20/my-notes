@@ -433,10 +433,156 @@ Es un archivo que describe tu repositorio de Git en el sitio GitHub, donde el .m
 
 Solo teines que crear un archivo en la raíz del proyecto llamado ```README.md``` y listo, ya pudes empezar a explicar aspectos de tu proyecto, que es, para que sirve, documentación, etc.
 
+
 ---
 
 ### GitHub Pages
 
 GitHub tiene un servicio de hosting gratis para páginas estaticas y este disponible en internet.
 
-Lo primero es que necesitas tener tu repositorio en GitHub, el siguiente paso será 
+TODO
+
+
+---
+
+### Git Rebase
+
+Git Rebese es una opción que tenemos en Git para reorganizar el trabajo realizado, es decir, esta opción nos permite integrar uno o una seríe de commits en un punto especifico de proyecto, se la rama master o cualquier otra rama, pero todo esto se haría sin hacer un merge.
+
+El uso de Git Rebase es recomendable usarla d emanera local, nunca en repositorios remotos ya que se considera una mala practica.
+
+El escenario en el que se realiza un Git Rebase e spor ejemplo cuando detectamos que hay un detalle en la rama principal, pero deseamos solucionarlo sin hacer un Merge, es decir integrar "n" commits a la rama main|master pero si que quede historial como sería con un merge.
+
+La implementación sería crear una rama (que llamaremos fix-bug), se hacen lso cambios requeridos con sus respectivos commits, para integrarlos y estando en la rama fix-bug hacemos ```git rebase main|master``` esto integrar los commit d ela rama fix-bug a la rama main|master, ahora nos cambiamos a la rama main|master y hacemos un rebase pero ahora hacia la rama fix-bug ```git rebase fix-bug```, con esto quedarán integrados los commits en la rama fix-bug y si eliminamos esta rama en el hsitorial esta rama nunca existio. Para liminar una rama es ```git branch -D _nombre_rama_a_eliminar_```.
+
+
+---
+
+### Git Stash
+
+Git Stach nos permite guadar cambios de forma temporal, es decir si nosotros ya agregamos archivos al area de perparación, pero no estamos listos para hacer un commit y no queremos perder estos cambios por que nos necesitamos cambiar de rama para eso usamos ```git stash```, esto nos guardara los cambios que teniamos en el area de preparación.
+
+Para consultar los stash que tenemos se usa el comando: ```git stash list``` y nos mostrara la siguiente información:
+```stash@{0}: WIP on main: _hash_corto_ _mensaje_commit_```, donde en la primera parte nos muestra el consecutivo del stash, despues hace referencia en que commit se realizo y también muestra el mensaje del commit.
+
+Cuando ya queremos ahora si retomar con lo que teniamos el stash nos movemos a la rama en la que se realizo el stash y ejecutamos ```git stash pop``` con esto recuperamos los cambios que teniamos en ele area de preparaicón y ya podemos hacerle commit o descartarlos.
+
+Tamnbién podemos agregar un stach a una rama, para eso cuando ya tengamos guadado el stash ejecutamos ```git stach branch _nombre_rama_``` esto nos cambiara a la rama que especificamos y con los cambios que teniamos en el stash, ya aqui podmeos ya sea omitir los ambios o en su defecto hacerle commit.
+
+Cuando creamos un estash y decidimos no utilizarlo lo podemos eliminar con el siguiente comando: ```git stash drop```.
+
+
+---
+
+### Git Clean
+
+Git permite eliminar archivos inecesarios, archivos que creamos por error o por algunas prubas que estemos realizando, como Git sabe cuales son los arhcivo a los que se les esta dando seguimiento, los demas archivos los considera basura.
+
+Para cosnulatar que archivos puede ser limpiados usamos el siguiente ocmando ```git clean dry-run``` el cual mostrar una lista de archivos que tal vez deseamos eliminar.
+
+Para eliminarlos d enuestro proyecto ejecutamos el comando ```git clean -f```, esto los eliminara d enuestro proyecto, considera que ya no será posible recuperarlos.
+
+Algo a considerar es que si por error duplicamos un directorio con un archivo que esta trakeado (Git le esta dando seguimiento) como el nombre del archivo es igual (solo el nombre del directorio cambia) al que tenemos en la carpeta original de la cual lo copiamos, git clean no lo eliminará y tendremos que eliminarlo a mano. Otro escenario en el que git no limpiara los archivos es por que estan siendo ignarados por el archivo .gitignore.
+
+
+---
+
+### Git Cherry-pick
+
+Este comando permite agregar a una rama un commit cualquiera de otra rama, solo necesitamos conocer el hash del commit que quermos agregar y estar posicionado en la rama a la que deseamos que se agregue ese commit, s ehace con el comando: ```git cherry-pick _hash_a_unir_ ``` y este commit se añadira a nuestra rama, solo hay que tener mucho cuidado con este comando ya que modifica la historia, usarlo solo en caso de emergencias.
+
+
+---
+
+### Git amend
+
+Este comando permite enmendar el último commit, si por ejemplo teniamos que modificar 2 archivos: el html y el css, despue svamos modificamos el html y hacemos el commit, pero necesitabamos que los cambios del archivo css quedaran en ese último commit, lo que podmeos hacer despues de haber realizado el commit (el cual contiene los cambios pero solo del html) es hacer los cambio necesarios en el archivo css, despues lo agregamos al área de preparación ```git add _nombre_archivo_```, una ves que ya lo agregamos ejecutamos el siguiente comando ```git commit --amend```, esto nos abrira el editor de texto con la información del último commit, por lo que en este último commit vamos a incluir también el archivo CSS, también vamos a poder cambiar el mensaje y así todo quedará en el mismo commit. 
+
+Esto solo es funcional para el último commit.
+
+
+---
+
+### Git Reflog
+
+Con este comando podemos consultar la historia completa dle proyecto, incluso mostrar información que no podemos obtener con Git log, pero es muy últil si por alguna razón hicimos git reset --hard hacia un puntpo del proyecto, todo lo que habia despues ya no se podra acceder desde ese punto con git log pero si con git reflog, así este comando es solo en caso de emergencia y hay que usarlo con mucho cuidado.
+
+
+---
+
+### Git Grep 
+
+Este comando nos permite buscar determinadas palabras en nuestro proyecto, cuantas veces usamos la palabra "color" por ejemplo y nos mostrara el archivo y toda su linea: ```git grep _palabra_a_buscar_```
+
+Si deseamos saber en que nuemor de línea se muestra agregamos el  al ejecutar el comando ```git grep -n _palabra_a_buscar_```
+
+Podemos obtener el número de veces que se muestra una pálabra se hace con el flag -n y no sdira cuantas veces aparece la palabra en cada archivo que la encontro ```git grep -c _palabra_a_buscar_```
+
+También podemos buscar palabras en los mensajes de los commits, esto se hace con el comando: ```git log -S _palabra_a_buscar_```
+
+
+---
+
+### Git shortlog
+
+Este comando permite saber información de los integrantes que han cotribuido al proyecto, como por ejemplo cuanto commits,
+
+Muestra el numero de commits y los mensajes de cada integrante del equipo:
+```git shortlog```
+
+Muestra solo el nombre de las personas que han hecho commits
+```git shortlog -sn```
+
+Muestra absolutamente todos los commits (incluso los borrados)
+```git shortlog -sn --all```
+
+Muestra absolutamente todos los commits (incluso los borrados) pero quitando los de los merge
+```git shortlog -sn --all --no-merges```
+
+
+---
+
+### Alias en Git
+
+Los alias permite asignar un nombre corto a comandos demaciado largos, para gregar nuestros alias:
+
+Agregamos un alias para el comando git stat
+```git config --global alias.stats "shortlog -sn --all --no-merges"```
+
+Podemos crear el alias arbol con el git log y todas sus flags
+```git config --global alias.arbol "log --all --graph --decorate --oneline"```
+
+### Git blame
+
+Este comando pemrite mostrar line por linea quien lo ha realizado, se hace con el comando:
+```git blame _nombre_archivo_```
+
+Para saber quien modifico que en un archivo:
+```git blame _nombre_archivo_ -L35,53```
+
+Para saber quien modifico que en un archivo mejor identado:
+```git blame _nombre_archivo_ -L35,53 -c```
+
+
+---
+
+### Para consultar la documentación web de cualquier comando
+
+Se ahce con el comando:
+```git _comando_ --help```
+
+
+---
+
+### Para consultar mas a detalle las ramas
+
+Consultar las ramas:
+```git branch```
+
+Consultar las ramas remotas:
+```git branch -r```
+
+Consultar todas las ramas locales y remotas, también muestra la rama en la que estamos parados con un asterisco:
+```git branch -a```
+
+
